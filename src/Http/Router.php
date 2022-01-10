@@ -54,7 +54,7 @@ class Router
     public function resolve()
     {
         $path = $this->request->getPath();
-        $method = $this->request->getMethod();
+        $method = $this->request->method();
         $callback = isset($this->routes[$method][$path]) 
             ? $this->routes[$method][$path] 
             : false;
@@ -69,7 +69,8 @@ class Router
         }
         
         if (is_array($callback)) {
-            $callback[0] = new $callback[0]();
+            Application::$app->controller = new $callback[0]();
+            $callback[0] = Application::$app->controller;
         }
         
         return call_user_func($callback, $this->request);
@@ -87,7 +88,7 @@ class Router
         $layout = $this->getLayout();
         $content = $this->renderView($view, $params);
 
-        return str_replace('{{content}}', $content, $layout);
+        return str_replace('{% content %}', $content, $layout);
     }
 
     /**
@@ -97,8 +98,9 @@ class Router
      */
     protected function getLayout()
     {
+        $layout = Application::$app->controller->layout;
         ob_start();
-        include_once Application::$ROOT_DIR . "/views/layouts/main.php";
+        include_once Application::$ROOT_DIR . "/views/layouts/$layout.php";
         
         return ob_get_clean();
     }
