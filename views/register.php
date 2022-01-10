@@ -1,3 +1,5 @@
+{% extends auth %}
+
 <div class="row mt-5">
     <div class="col-4 offset-4">
         <h1>Register</h1>

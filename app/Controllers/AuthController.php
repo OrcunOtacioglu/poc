@@ -8,13 +8,11 @@ class AuthController extends BaseController
 {
     public function showLogin()
     {
-        $this->setLayout('auth');
         return $this->render('login');
     }
     
     public function showRegister()
     {
-        $this->setLayout('auth');
         return $this->render('register');
     }
     

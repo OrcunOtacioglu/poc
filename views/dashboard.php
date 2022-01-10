@@ -1,3 +1,5 @@
+{% extends main %}
+
 <h1>Dashboard</h1>
 <form action="/form" method="post">
     <div class="mb-3">
