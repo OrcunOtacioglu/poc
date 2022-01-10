@@ -4,66 +4,56 @@ namespace BetterProposals\Http;
 
 class Request
 {
-    protected $query;
-
-    protected $request;
-    
-    protected $attributes;
-    
-    protected $cookies;
-    
-    protected $files;
-    
-    protected $server;
-    
-    protected $content;
-    
-    public function __construct()
+    /**
+     * Returns the request path.
+     * 
+     * @return string
+     */
+    public function getPath()
     {
-        $this->query = $_GET;
-        $this->request = $_POST;
-        $this->attributes = isset($_SERVER['PATH_INFO']) 
-            ? $_SERVER['PATH_INFO'] 
+        $path = isset($_SERVER['REQUEST_URI']) 
+            ? $_SERVER['REQUEST_URI'] 
             : '/';
-        $this->cookies = $_COOKIE;
-        $this->files = $_FILES;
-        $this->server = $_SERVER;
-        $this->content = null;
-    }
-    
-    public function query($queryParameterName)
-    {
-        if (array_key_exists($queryParameterName, $this->query)) {
-            return $this->query[$queryParameterName];
-        }
+        $hasQueryParams = strpos($path, '?');
         
-        return null;
-    }
-    
-    public function request($requestParameterName)
-    {
-        if (array_key_exists($requestParameterName, $this->query)) {
-            return $this->request[$requestParameterName];
+        if ($hasQueryParams) {
+            return substr($path, 0, $hasQueryParams);
         }
 
-        return null;
+        return $path;
     }
-    
-    public function attributes()
+
+    /**
+     * Returns the request method.
+     * 
+     * @return string
+     */
+    public function getMethod()
     {
-        return $this->attributes;
+        return strtolower($_SERVER['REQUEST_METHOD']);
     }
-    
-    public function cookies($cookieName = null)
+
+    /**
+     * Returns all request parameters both for get and post actions.
+     * 
+     * @return array
+     */
+    public function all()
     {
-        if ($cookieName !== null && array_key_exists($cookieName, $this->cookies)) {
-            return $this->cookies[$cookieName];
+        $parameterBag = [];
+        
+        if ($this->getMethod() == 'get') {
+            foreach ($_GET as $key => $value) {
+                $parameterBag[$key] = filter_input(INPUT_GET, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+            }
+        }
+
+        if ($this->getMethod() == 'post') {
+            foreach ($_POST as $key => $value) {
+                $parameterBag[$key] = filter_input(INPUT_POST, $key, FILTER_SANITIZE_SPECIAL_CHARS);
+            }
         }
         
-        if ($cookieName == null) {
-            return $this->cookies;
-        }
-        
-        return null;
+        return $parameterBag;
     }
 }
