@@ -10,8 +10,18 @@
                 <label for="password" class="form-label">Password</label>
                 <input type="password" name="password" class="form-control" id="password">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="row">
+                <div class="col-6 offset-3">
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Login</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-8 offset-2 text-center">
+                    <p>Don't have an account yet? <a href="/register">Register here</a></p>
+                </div>
+            </div>
         </form>
-        <a href="/register">Register here</a>
     </div>
 </div>

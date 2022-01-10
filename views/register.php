@@ -18,8 +18,18 @@
                 <label for="confirm_password" class="form-label">Confirm Password</label>
                 <input type="password" name="confirm_password" class="form-control" id="confirm_password">
             </div>
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <div class="row">
+                <div class="col-6 offset-3">
+                    <div class="d-grid gap-2">
+                        <button type="submit" class="btn btn-primary">Register</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row mt-3">
+                <div class="col-8 offset-2 text-center">
+                    <p>Have an account? <a href="/login">Login here</a></p>
+                </div>
+            </div>
         </form>
-        <a href="/login">Login here</a>
     </div>
 </div>

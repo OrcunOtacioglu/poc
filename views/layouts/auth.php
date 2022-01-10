@@ -16,6 +16,9 @@
 <body>
 <div class="container">
     {% content %}
+    <div class="text-center">
+        <a href="/">Back to Homepage</a>
+    </div>
 </div>
 
 <!-- Option 1: Bootstrap Bundle with Popper -->
