@@ -4,13 +4,13 @@ namespace BetterProposals\Http;
 
 class Response
 {
-    public function __construct(Request $request)
+    /**
+     * Sets the status code.
+     * 
+     * @param $statusCode
+     */
+    public function setStatusCode($statusCode)
     {
-        
-    }
-    
-    public function send()
-    {
-        echo 'Working!';
+        http_response_code($statusCode);
     }
 }
