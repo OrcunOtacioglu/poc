@@ -16,7 +16,7 @@ class Application
 
     public $router;
     
-    public $controller;
+    public $defaultTemplate = 'main';
     
     public static $app;
     
@@ -32,15 +32,5 @@ class Application
     public function run()
     {
         echo $this->router->resolve();
-    }
-    
-    public function getController()
-    {
-        return $this->controller;
-    }
-    
-    public function setController($controller)
-    {
-        $this->controller = $controller;
     }
 }

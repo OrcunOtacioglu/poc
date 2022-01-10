@@ -3,6 +3,7 @@
 namespace BetterProposals\Http;
 
 use BetterProposals\Application;
+use BetterProposals\Helpers\Str;
 
 class Router
 {
@@ -85,23 +86,26 @@ class Router
      */
     public function render($view, $params = [])
     {
-        $layout = $this->getLayout();
         $content = $this->renderView($view, $params);
+        $layout = $this->getLayoutFromView($content);
+        $content = Str::removeLayoutTag($content);
 
         return str_replace('{% content %}', $content, $layout);
     }
 
     /**
-     * Renders the layout.
+     * Gets the layout name from view.
      * 
+     * @param $viewContent
      * @return false|string
      */
-    protected function getLayout()
+    protected function getLayoutFromView($viewContent)
     {
-        $layout = Application::$app->controller->layout;
+        $layout = Str::getLayoutName($viewContent);
+
         ob_start();
         include_once Application::$ROOT_DIR . "/views/layouts/$layout.php";
-        
+
         return ob_get_clean();
     }
 
