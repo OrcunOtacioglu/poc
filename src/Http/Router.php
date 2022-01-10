@@ -88,7 +88,7 @@ class Router
         $layout = $this->getLayout();
         $content = $this->renderView($view, $params);
 
-        return str_replace('{{content}}', $content, $layout);
+        return str_replace('{% content %}', $content, $layout);
     }
 
     /**

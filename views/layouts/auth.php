@@ -15,7 +15,7 @@
 </head>
 <body>
 <div class="container">
-    {{content}}
+    {% content %}
 </div>
 
 <!-- Option 1: Bootstrap Bundle with Popper -->
